@@ -1,0 +1,86 @@
+import LeafDoc from 'leafdoc';
+import {writeFileSync} from 'node:fs';
+
+console.log('Building Leaflet documentation with Leafdoc ...');
+
+const doc = new LeafDoc({
+	templateDir: 'build/leafdoc-templates',
+	showInheritancesWhenEmpty: true,
+	leadingCharacter: '@'
+});
+{
+  "name": "leaflet",
+  "version": "2.0.0-alpha.1",
+  "homepage": "https://leafletjs.com/",
+  "description": "JavaScript library for mobile-friendly interactive maps",
+  "devDependencies": {
+    "@eslint/css": "^1.1.0",
+    "@mapbox/eslint-plugin-script-tags": "^1.0.0",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-terser": "^1.0.0",
+    "bundlemon": "^3.1.0",
+    "chai": "^6.2.2",
+    "eslint": "^10.0.3",
+    "eslint-config-mourner": "^4.1.0",
+    "eslint-plugin-baseline-js": "^0.6.1",
+    "eslint-plugin-import-x": "^4.16.2",
+    "globals": "^17.5.0",
+    "http-server": "^14.1.1",
+    "husky": "^9.1.7",
+    "karma": "^6.4.4",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-coverage": "^2.2.1",
+    "karma-firefox-launcher": "^2.1.3",
+    "karma-mocha": "^2.0.1",
+    "karma-safarinative-launcher": "^1.1.0",
+    "karma-time-stats-reporter": "^0.1.0",
+    "leafdoc": "^2.3.0",
+    "lint-staged": "^16.4.0",
+    "mocha": "^11.7.5",
+    "prosthetic-hand": "^2.2.2",
+    "requirejs": "^2.3.8",
+    "rollup": "^4.60.1",
+    "sinon": "^21.0.3",
+    "ssri": "^13.0.1",
+    "ui-event-simulator": "^2.0.0"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./dist/leaflet-src.js",
+    "./styles.css": "./dist/leaflet.css"
+  },
+  "style": "dist/leaflet.css",
+  "files": [
+    "dist",
+    "src",
+    "!dist/leaflet.zip",
+    "!*.leafdoc",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "debug": "http-server -c-1",
+    "docs": "node ./build/docs.js && node ./build/integrity.js",
+    "test": "karma start ./spec/karma.conf.cjs",
+    "coverage": "karma start ./spec/karma.conf.cjs --coverage --single-run",
+    "build": "rollup --config build/rollup-config.js",
+    "watch": "npm run build -- --watch",
+    "lint": "eslint .",
+    "lintfix": "npm run lint -- --fix",
+    "bundlemon": "bundlemon",
+    "serve": "cd docs && bundle exec jekyll serve",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Leaflet/Leaflet.git"
+  },
+  "keywords": [
+    "gis",
+    "map"
+    "leaflet"
+  ],
+  "license": "BSD-2-Clause",
+  "lint-staged": {
+    "*.(js|mjs|md)": "eslint --cache --fix"
+  }
+}
